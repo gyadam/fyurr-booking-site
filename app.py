@@ -128,7 +128,7 @@ def venues():
       "venues": [{
         "id": venue.id,
         "name": venue.name,
-        "num_upcoming_shows": Show.query.filter((Show.artist_id==venue.id and Show.start_time > datetime.utcnow)).count()
+        "num_upcoming_shows": Show.query.filter((Show.venue_id==venue.id and Show.start_time > datetime.utcnow)).count()
       } for venue in venues]
     }
     data.append(record)
