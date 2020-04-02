@@ -127,7 +127,7 @@ def venues():
       "venues": [{
         "id": venue.id,
         "name": venue.name,
-        "num_upcoming_shows": Show.query.filter((Show.venue_id==venue.id and Show.start_time > datetime.utcnow())).count()
+        "num_upcoming_shows": Show.query.filter(Show.venue_id == venue.id, Show.start_time > datetime.utcnow()).count()
       } for venue in venues]
     }
     data.append(record)
@@ -156,7 +156,7 @@ def show_venue(venue_id):
   data = venue.__dict__
 
   data_past = []
-  past_shows = Show.query.filter((Show.start_time < datetime.utcnow())).all()
+  past_shows = Show.query.filter(Show.venue_id == venue_id, Show.start_time < datetime.utcnow()).all()
   for past_show in past_shows:
     artist = Artist.query.filter_by(id=past_show.artist_id).first()
     record = {
@@ -168,7 +168,7 @@ def show_venue(venue_id):
     data_past.append(record)
 
   data_upcoming = []
-  upcoming_shows = Show.query.filter((Show.start_time > datetime.utcnow())).all()
+  upcoming_shows = Show.query.filter(Show.venue_id == venue_id, Show.start_time > datetime.utcnow()).all()
   for upcoming_show in upcoming_shows:
     artist = Artist.query.filter_by(id=upcoming_show.artist_id).first()
     record = {
