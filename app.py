@@ -5,7 +5,7 @@
 import json
 import dateutil.parser
 import babel
-from flask import Flask, render_template, request, Response, flash, redirect, url_for, abort
+from flask import Flask, render_template, request, Response, flash, redirect, url_for
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -275,14 +275,12 @@ def create_venue_submission():
     print("Session closed!")
 
   if error:
-    abort(500)
+    # on unsuccessful db insert, flash error
+    flash('An error occurred. Venue ' + data['name'] + ' could not be listed.')
   else:
     # on successful db insert, flash success
     flash('Venue ' + request.form['name'] + ' was successfully listed!')
-    # TODO: on unsuccessful db insert, flash an error instead
-    #flash('An error occurred. Venue ' + data.name + ' could not be listed.')
-    # see: http://flask.pocoo.org/docs/1.0/patterns/flashing/
-    return render_template('pages/home.html')
+  return render_template('pages/home.html')
 
 @app.route('/venues/<venue_id>', methods=['DELETE'])
 def delete_venue(venue_id):
@@ -492,13 +490,12 @@ def create_artist_submission():
     print("Session closed!")
 
   if error:
-    abort(500)
+    # on unsuccessful db insert, flash error
+    flash('An error occurred. Artist ' + data['name'] + ' could not be listed.')
   else:
     # on successful db insert, flash success
-    flash('Artist ' + request.form['name'] + ' was successfully listed!')
-    # TODO: on unsuccessful db insert, flash an error instead.
-    # e.g., flash('An error occurred. Artist ' + data.name + ' could not be listed.')
-    return render_template('pages/home.html')
+    flash('Artist ' + data['name'] + ' was successfully listed!')
+  return render_template('pages/home.html')
 
 
 #  Shows
