@@ -23,7 +23,7 @@ moment = Moment(app)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
-# TODO: connect to a local postgresql database
+# Connect to a local postgresql database
 migrate = Migrate(app, db)
 
 #----------------------------------------------------------------------------#
@@ -57,8 +57,6 @@ class Venue(db.Model):
     genres = db.relationship('Genre', secondary=venue_genres, backref=db.backref('venue', lazy=True))
 
 
-    # TODO: implement any missing fields, as a database migration using Flask-Migrate
-
 class Artist(db.Model):
     __tablename__ = 'Artist'
 
@@ -74,7 +72,6 @@ class Artist(db.Model):
     seeking_description = db.Column(db.String(500))
     genres = db.relationship('Genre', secondary=artist_genres, backref=db.backref('artist', lazy=True))
 
-    # TODO: implement any missing fields, as a database migration using Flask-Migrate
 
 class Genre(db.Model):
     __tablename__ = 'Genre'
@@ -254,7 +251,6 @@ def create_venue_form():
 
 @app.route('/venues/create', methods=['POST'])
 def create_venue_submission():
-  # TODO: insert form data as a new Venue record in the db, instead
   # TODO: modify data to be the data object returned from db insertion
   error = False
   try:
@@ -472,7 +468,6 @@ def create_artist_form():
 @app.route('/artists/create', methods=['POST'])
 def create_artist_submission():
   # called upon submitting the new artist listing form
-  # TODO: insert form data as a new Venue record in the db, instead
   # TODO: modify data to be the data object returned from db insertion
   error = False
   try:
