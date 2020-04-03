@@ -49,6 +49,7 @@ def upgrade():
           {'name': 'Hip-Hop'},
           {'name': 'Heavy Metal'},
           {'name': 'Instrumental'},
+          {'name': 'Jazz'},
           {'name': 'Musical Theatre'},
           {'name': 'Pop'},
           {'name': 'Punk'},
