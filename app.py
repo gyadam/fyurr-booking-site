@@ -181,6 +181,7 @@ def show_venue(venue_id):
 
   data["past_shows"] = data_past
   data["upcoming_shows"] = data_upcoming
+  data["genres"] = [genre.name for genre in venue.genres]
 
   return render_template('pages/show_venue.html', venue=data)
 
@@ -202,19 +203,15 @@ def create_venue_submission():
 
     genres = data.getlist('genres')
     for g in genres:
-      genre = Genre(name=g)
-      genre.venue = [venue]
-      db.session.add(genre)
+      genre = Genre.query.filter(Genre.name == g).first()
+      venue.genres.append(genre)
 
     db.session.commit()
-    print("Venue added to database!")
   except:
     error = True
     db.session.rollback()
-    print("An error occured!")
   finally:
     db.session.close()
-    print("Session closed!")
 
   if error:
     # on unsuccessful db insert, flash error
