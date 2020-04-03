@@ -304,6 +304,7 @@ def show_artist(artist_id):
   data["upcoming_shows"] = data_upcoming
   data["past_shows_count"] = past_shows_cnt
   data["upcoming_shows_count"] = upcoming_shows_cnt
+  data["genres"] = [genre.name for genre in artist.genres]
 
   return render_template('pages/show_artist.html', artist=data)
 
@@ -418,19 +419,15 @@ def create_artist_submission():
 
     genres = data.getlist('genres')
     for g in genres:
-      genre = Genre(name=g)
-      genre.artist = [artist]
-      db.session.add(genre)
+      genre = Genre.query.filter(Genre.name == g).first()
+      artist.genres.append(genre)
 
     db.session.commit()
-    print("Artist added to database!")
   except:
     error = True
     db.session.rollback()
-    print("An error occured!")
   finally:
     db.session.close()
-    print("Session closed!")
 
   if error:
     # on unsuccessful db insert, flash error
