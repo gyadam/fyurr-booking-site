@@ -330,21 +330,19 @@ def edit_artist_submission(artist_id):
     artist.phone = data['phone']
     artist.facebook_link = data['facebook_link']
     
+    artist.genres = []
+
     genres = data.getlist('genres')
     for g in genres:
-      genre = Genre(name=g)
-      genre.artist = [artist]
-      db.session.add(genre)
+      genre = Genre.query.filter(Genre.name == g).first()
+      artist.genres.append(genre)
 
     db.session.commit()
-    print("Artist edited!")
   except:
     error = True
     db.session.rollback()
-    print("An error occured!")
   finally:
     db.session.close()
-    print("Session closed!")
 
   if error:
     # on unsuccessful db insert, flash error
@@ -376,21 +374,18 @@ def edit_venue_submission(venue_id):
     venue.address = data['address']
     venue.facebook_link = data['facebook_link']
     
+    venue.genres = []
     genres = data.getlist('genres')
     for g in genres:
-      genre = Genre(name=g)
-      genre.venue = [venue]
-      db.session.add(genre)
+      genre = Genre.query.filter(Genre.name == g).first()
+      venue.genres.append(genre)
 
     db.session.commit()
-    print("Venue edited!")
   except:
     error = True
     db.session.rollback()
-    print("An error occured!")
   finally:
     db.session.close()
-    print("Session closed!")
 
   if error:
     # on unsuccessful db insert, flash error
@@ -418,8 +413,8 @@ def create_artist_submission():
     db.session.add(artist)
 
     genres = data.getlist('genres')
-    for g in genres:
-      genre = Genre.query.filter(Genre.name == g).first()
+    for new_genres in genres:
+      genre = Genre.query.filter(Genre.name == new_genres).first()
       artist.genres.append(genre)
 
     db.session.commit()
