@@ -7,6 +7,7 @@ Create Date: 2020-03-31 22:15:12.417417
 """
 from alembic import op
 import sqlalchemy as sa
+from app import Genre
 
 
 # revision identifiers, used by Alembic.
@@ -31,11 +32,34 @@ def upgrade():
     sa.Column('seeking_description', sa.String(length=500), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('Genre',
+    genre_table = op.create_table('Genre',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=120), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+
+    default_genres = [
+          {'name': 'Alternative'},
+          {'name': 'Blues'},
+          {'name': 'Classical'},
+          {'name': 'Country'},
+          {'name': 'Electronic'},
+          {'name': 'Folk'},
+          {'name': 'Funk'},
+          {'name': 'Hip-Hop'},
+          {'name': 'Heavy Metal'},
+          {'name': 'Instrumental'},
+          {'name': 'Musical Theatre'},
+          {'name': 'Pop'},
+          {'name': 'Punk'},
+          {'name': 'R&B'},
+          {'name': 'Reggae'},
+          {'name': 'Rock n Roll'},
+          {'name': 'Soul'},
+          {'name': 'Other'},
+        ]
+    op.bulk_insert(genre_table, default_genres)
+
     op.create_table('Venue',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
