@@ -198,7 +198,9 @@ def create_venue_submission():
   error = False
   try:
     data = request.form
-    venue = Venue(name=data['name'], city=data['city'], state=data['state'], address=data['address'], phone=data['phone'], facebook_link = data['facebook_link'])
+    venue = Venue(name=data['name'], city=data['city'], state=data['state'], address=data['address'], phone=data['phone'], facebook_link = data['facebook_link'], image_link=data['image_link'], website=data['website'], seeking_description=data['seeking_description'])
+    if 'seeking_talent' in data:
+      venue.seeking_talent=(data['seeking_talent'] == 'y')
     db.session.add(venue)
 
     genres = data.getlist('genres')
@@ -329,6 +331,10 @@ def edit_artist_submission(artist_id):
     artist.state = data['state']
     artist.phone = data['phone']
     artist.facebook_link = data['facebook_link']
+    artist.image_link = data['image_link']
+    artist.website = data['website']
+    artist.seeking_venue = (data['seeking_venue'] == 'y')
+    artist.seeking_description = data['seeking_description']
     
     artist.genres = []
 
@@ -373,6 +379,14 @@ def edit_venue_submission(venue_id):
     venue.phone = data['phone']
     venue.address = data['address']
     venue.facebook_link = data['facebook_link']
+    venue.image_link = data['image_link']
+    venue.website = data['website']
+    if 'seeking_talent' in data:
+      venue.seeking_talent = (data['seeking_talent'] == 'y')
+      venue.seeking_description = data['seeking_description']
+    else:
+      venue.seeking_talent = False
+      venue.seeking_description = []
     
     venue.genres = []
     genres = data.getlist('genres')
@@ -409,7 +423,10 @@ def create_artist_submission():
   error = False
   try:
     data = request.form
-    artist = Artist(name=data['name'], city=data['city'], state=data['state'], phone=data['phone'], facebook_link = data['facebook_link'])
+    artist = Artist(name=data['name'], city=data['city'], state=data['state'], phone=data['phone'], facebook_link = data['facebook_link'], image_link=data['image_link'], website=data['website'], seeking_description=data['seeking_description'])
+    if 'seeking_venue' in data:
+      artist.seeking_venue=(data['seeking_venue'] == 'y')
+
     db.session.add(artist)
 
     genres = data.getlist('genres')
@@ -418,6 +435,7 @@ def create_artist_submission():
       artist.genres.append(genre)
 
     db.session.commit()
+
   except:
     error = True
     db.session.rollback()
@@ -448,6 +466,7 @@ def shows():
       "artist_id": show.artist_id,
       "artist_image_link": Artist.query.filter_by(id=show.artist_id).first().image_link,
       "start_time": str(show.start_time)
+      # TODO: add artist name
     }
     data.append(record)
   return render_template('pages/shows.html', shows=data)
