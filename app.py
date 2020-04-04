@@ -464,9 +464,9 @@ def shows():
       "venue_id": show.venue_id,
       "venue_name": Venue.query.filter_by(id=show.venue_id).first().name,
       "artist_id": show.artist_id,
+      "artist_name": Artist.query.filter_by(id=show.artist_id).first().name,
       "artist_image_link": Artist.query.filter_by(id=show.artist_id).first().image_link,
       "start_time": str(show.start_time)
-      # TODO: add artist name
     }
     data.append(record)
   return render_template('pages/shows.html', shows=data)
