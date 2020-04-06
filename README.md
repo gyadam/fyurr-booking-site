@@ -1,4 +1,4 @@
-## Fyurr - musical artist and venue booking website
+# Fyurr - musical artist and venue booking website
 
 ### Overview
 
