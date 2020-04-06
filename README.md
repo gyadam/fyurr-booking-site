@@ -1,6 +1,6 @@
-# Fyurr - musical artist and venue booking website
+## Fyurr - musical artist and venue booking website
 
-## Overview
+### Overview
 
 Fyurr is a musical artist and venue booking website created for the [Full Stack Developer Nanodegree](https://www.udacity.com/course/full-stack-web-developer-nanodegree--nd0044) at Udacity.
 The goal of the project was to:
@@ -11,7 +11,7 @@ The goal of the project was to:
 
 The site runs on localhost and was created only for educational purposes.
 
-## Tech stack
+### Tech stack
 
 - **SQLAlchemy ORM** as the ORM library
 - **PostgreSQL** as the database of choice
@@ -19,7 +19,7 @@ The site runs on localhost and was created only for educational purposes.
 - **Flask-Migrate** for creating and running schema migrations
 - **HTML**, **CSS**, and **Javascript** with **Bootstrap 3** for the frontend
 
-## Main files: Project Structure
+### Main files: Project Structure
 ```
 ├── README.md
 ├── app.py *** the main driver of the app. Includes the SQLAlchemy models.
@@ -41,7 +41,7 @@ The site runs on localhost and was created only for educational purposes.
     └── pages
 ```
 
-## Development Setup
+### Development Setup
 
 To start and run the local development server,
 Initialize and activate a virtualenv:
