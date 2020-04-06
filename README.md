@@ -1,5 +1,7 @@
 # Fyurr - musical artist and venue booking website
 
+<img src="./images/fyurr_screenshot.png" alt="Homepage of Fyurr" width="300"/>
+
 ### Overview
 
 Fyurr is a musical artist and venue booking website created for the [Full Stack Developer Nanodegree](https://www.udacity.com/course/full-stack-web-developer-nanodegree--nd0044) at Udacity.
