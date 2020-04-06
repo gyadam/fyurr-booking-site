@@ -1,6 +1,6 @@
 # Fyurr - musical artist and venue booking website
 
-<img src="./images/fyurr_screenshot.png" alt="Homepage of Fyurr" width="300"/>
+<img src="./images/fyurr_screenshot.png" alt="Homepage of Fyurr" width="500"/>
 
 ### Overview
 
